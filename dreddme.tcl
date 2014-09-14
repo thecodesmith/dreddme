@@ -41,13 +41,15 @@ namespace eval dredd {
 
         set body [getFormattedBody]
         set url  [getFullUrl]
-        puts "Posting: $body \nTo URL: $url"
+        puts "Posting: \
+                \nFile:  $::dredd::source_file \
+                \nUser:  $::dredd::user \
+                \nToken: $::dredd::token \
+                \nURL:   $url"
 
-        set json_response [postHttp $url $body]
-        set response [parseJson $json_response]
+        set response [postHttp $url $body]
 
-        set verdict [dict get $response verdict]
-        puts "Verdict: $verdict"
+        processResponse $response
 
         return
     }
@@ -67,6 +69,24 @@ namespace eval dredd {
         ::http::cleanup $token
 
         return $response
+    }
+
+    proc processResponse { response } {
+
+        if { [catch { parseJson $response }] } {
+
+            set error_message [parseError $response]
+            puts "\nSubmission Error: $error_message"
+
+        } else {
+
+            set response [parseJson $response]
+
+            set verdict [dict get $response verdict]
+            puts "\nVerdict: $verdict"
+        }
+
+        return
     }
 
     proc getFullUrl { } {
@@ -108,6 +128,13 @@ namespace eval dredd {
     proc parseJson { json } {
 
         return [::json::json2dict $json]
+    }
+
+    proc parseError { html } {
+
+        regexp "(HTTP 4.+?)<" $html -> error_message
+
+        return $error_message
     }
 }
 
