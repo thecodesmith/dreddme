@@ -19,3 +19,16 @@ Output:
     URL:   http://dpl.cs.uwec.edu/operations/dredd/problem/test_00_hello
 
     Verdict: Success
+
+Installation
+------------
+
+To use this utility, clone the repo and add the directory to your `$PATH` variable.
+
+Clone the repository:
+
+    git clone git@github.com:thecodesmith/DreddMe ~/tools/dreddme
+    
+Edit your `~/.bash_profile`:
+
+    export PATH=~/tools/dreddme:$PATH
