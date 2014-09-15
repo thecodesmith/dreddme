@@ -27,7 +27,7 @@ To use this utility, clone the repo and add the directory to your `$PATH` variab
 
 Clone the repository:
 
-    git clone git@github.com:thecodesmith/DreddMe ~/tools/dreddme
+    git clone git@github.com:thecodesmith/dreddme ~/tools/dreddme
     
 Edit your `~/.bash_profile`:
 
