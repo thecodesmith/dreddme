@@ -1,17 +1,18 @@
-#!/usr/bin/tcl
+#!/usr/bin/tclsh
 
 package require Tcl 8.4
 package require http 2.7
 
-set HELP_MESSAGE "Usage: \
-        \n  dreddme <source file> \
-        \n\nNote: Source file name must match Dredd problem name (e.g., test_00_hello.py)"
-
-source json.tcl
-
 namespace eval dredd {
 
-    variable url variable user
+    set HELP_MESSAGE "Usage: \
+            \n  dreddme <source file> \
+            \n\nNote: Source file name must match Dredd problem name (e.g., test_00_hello.py)"
+
+    variable script_dir [file dirname [info script]]
+
+    variable url 
+    variable user
     variable token
     variable language
     variable problem_name
@@ -56,7 +57,7 @@ namespace eval dredd {
 
     proc loadConfiguration { } {
 
-        source config.tcl
+        source "$::dredd::script_dir/config.tcl"
 
         return
     }
@@ -73,16 +74,14 @@ namespace eval dredd {
 
     proc processResponse { response } {
 
-        if { [catch { parseJson $response }] } {
+        if { [catch { parseJson $response } result] } {
 
             set error_message [parseError $response]
             puts "\nSubmission Error: $error_message"
 
         } else {
 
-            set response [parseJson $response]
-
-            set verdict [dict get $response verdict]
+            set verdict [parseJson $response]
             puts "\nVerdict: $verdict"
         }
 
@@ -126,13 +125,19 @@ namespace eval dredd {
     }
 
     proc parseJson { json } {
+	
+	regexp "verdict\": \"(\\w+)" $json -> verdict
 
-        return [::json::json2dict $json]
+        return $verdict
     }
 
     proc parseError { html } {
 
         regexp "(HTTP 4.+?)<" $html -> error_message
+
+	if { ![info exists error_message] } {
+            set error_message $html
+	}
 
         return $error_message
     }
