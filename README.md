@@ -22,6 +22,10 @@ Save changes and exit. Load the new settings:
     
 Configure your Dredd settings by adding your <b>username</b> and <b>authorization token</b> to `~/tools/dreddme/config.tcl`.
 
+Finally, use `chmod` to make <b>dreddme</b> executable:
+
+    chmod +x dreddme
+
 Usage
 -----
 
