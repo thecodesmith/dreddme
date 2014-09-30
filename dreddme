@@ -24,6 +24,7 @@ namespace eval dredd {
             cpp  C++ \
             cc   C++ \
             go   Go \
+            groovy Groovy \
             java Java \
             hs   Haskell \
             lua  Lua \
