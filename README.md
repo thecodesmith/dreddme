@@ -1,7 +1,13 @@
 DreddMe
 =======
 
-This is a command line utility to submit source code files to <b>Dredd</b>. Using the simple command `dreddme <filename>` from the console, a source code file can be submitted to Dredd for judging. When the verdict is returned, it is printed to the console. See below for details.
+_University of Wisconsin - Eau Claire_
+
+_CS 491: Programming Challenges_
+
+_Author: Brian Stewart_
+
+DreddMe is a command line utility to submit source code files to <a href="http://dpl.cs.uwec.edu/operations/dredd/"><b>Dredd</b></a>, the automated judge for <b>CS 491: Programming Challenges</b>. Using the simple command `dreddme <filename>` from the console, a source code file can be submitted to Dredd for judging. When the verdict is returned, it is printed to the console. See below for details.
 
 Installation
 ------------
@@ -21,6 +27,10 @@ Save changes and exit. Load the new settings:
     source ~/.bash_profile
     
 Configure your Dredd settings by adding your <b>username</b> and <b>authorization token</b> to `~/tools/dreddme/config.tcl`.
+
+Finally, use `chmod` to make <b>dreddme</b> executable:
+
+    chmod +x dreddme
 
 Usage
 -----
