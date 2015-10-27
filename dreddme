@@ -11,7 +11,7 @@ namespace eval dredd {
 
     variable script_dir [file dirname [info script]]
 
-    variable url 
+    variable url
     variable user
     variable token
     variable language
@@ -20,16 +20,16 @@ namespace eval dredd {
     variable source_code
 
     variable LANGUAGES [dict create \
-            c    C \
-            cpp  C++ \
-            cc   C++ \
-            go   Go \
-            groovy Groovy \
-            java Java \
-            hs   Haskell \
-            lua  Lua \
-            pl   Perl \
-            py   Python \
+            c    C                  \
+            cpp  C++                \
+            cc   C++                \
+            go   Go                 \
+            groovy Groovy           \
+            java Java               \
+            hs   Haskell            \
+            lua  Lua                \
+            pl   Perl               \
+            py   Python             \
             rb   Ruby]
 
     proc getVerdict { file_name } {
@@ -58,10 +58,7 @@ namespace eval dredd {
     }
 
     proc loadConfiguration { } {
-
         source "$::dredd::script_dir/config.tcl"
-
-        return
     }
 
     proc postHttp { url body } {
@@ -86,19 +83,15 @@ namespace eval dredd {
             set verdict [parseJson $response]
             puts "\nVerdict: $verdict"
         }
-
-        return
     }
 
     proc getFullUrl { } {
-
         return "$::dredd::url/$::dredd::problem_name"
     }
 
     proc getFormattedBody { } {
-
-        return [::http::formatQuery user     $::dredd::user \
-                                    token    $::dredd::token \
+        return [::http::formatQuery user     $::dredd::user     \
+                                    token    $::dredd::token    \
                                     language $::dredd::language \
                                     "source" $::dredd::source_code]
     }
@@ -127,8 +120,8 @@ namespace eval dredd {
     }
 
     proc parseJson { json } {
-	
-	regexp "verdict\": \"(\\w+)" $json -> verdict
+
+        regexp "verdict\": \"(\\w+)" $json -> verdict
 
         return $verdict
     }
@@ -137,9 +130,9 @@ namespace eval dredd {
 
         regexp "(HTTP 4.+?)<" $html -> error_message
 
-	if { ![info exists error_message] } {
+        if { ![info exists error_message] } {
             set error_message $html
-	}
+        }
 
         return $error_message
     }
@@ -166,3 +159,5 @@ if { $argc != 1 } {
         ::dredd::getVerdict $source_file
     }
 }
+
+# vim: filetype=tcl
