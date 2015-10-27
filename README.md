@@ -8,7 +8,7 @@ _CS 491: Programming Challenges_
 _Author: Brian Stewart_
 
 DreddMe is a command line utility to submit source code files to
-[Dredd]("http://dpl.cs.uwec.edu/operations/dredd/"), the automated judge for
+[Dredd](http://dpl.cs.uwec.edu/operations/dredd/), the automated judge for
 **CS 491: Programming Challenges**. Using the simple command
 `dreddme <filename>` from the console, a source code file can be submitted to
 Dredd for judging. When the verdict is returned, it is printed to the console.
